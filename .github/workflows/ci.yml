@@ -11,10 +11,7 @@ jobs:
 
       - name: Hello Codelies!
         run: echo "Hello!!!! from ${{ github.workflow }} triggered by the ${{ github.event_name }} done by ${{ github.actor }}"
-      
-      - name: Failing
-        run: exit 4
-        
+
       - name: 😃
         env:
           JOB_CONTEXT: ${{ toJson(job) }}
