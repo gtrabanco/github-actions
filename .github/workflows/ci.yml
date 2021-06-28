@@ -7,11 +7,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Hello Codelies!
         run: echo "Hello!!!! from ${{ github.workflow }} triggered by the ${{ github.event_name }} done by ${{ github.actor }}"
 
+      - name: Fail to test if I can not merge PR
+        run: exit 4
+        
       - name: 😃
         env:
           JOB_CONTEXT: ${{ toJson(job) }}
