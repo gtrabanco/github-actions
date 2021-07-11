@@ -9,8 +9,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        php-versions: ['7.4', '8']
 
+    name: ${{ matrix.os }} PHP ${{ matrix.php-versions }}
     steps:
       - uses: actions/checkout@v2
 
@@ -23,3 +28,16 @@ jobs:
         run: |
           echo "Job Context: $JOB_CONTEXT"
           echo "Done!"
+
+      - name: Gretting if Windows
+        if: matrix.os == 'windows-latest'
+        run: echo "I'm on Win!"
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: none
+      
+      - name: Show PHP version
+        run: php --version
